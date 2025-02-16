@@ -1,0 +1,23 @@
+---
+import Tags from '../../components/Tags.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const pageTitle = 'All tags'
+
+const allPosts = Object.values(
+  import.meta.glob('../posts/*.md', { eager: true })
+)
+
+const uniqueTags = [
+  ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+]
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>
+    Below we will make a list of all the unique tags and a link to their
+    respective page
+  </p>
+
+  <Tags tags={uniqueTags} />
+</BaseLayout>
